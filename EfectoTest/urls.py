@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework import urls
+
+from django.contrib import admin
+from django.urls import path, include
+from apps.GeoSports.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('API/v1/', include('apps.GeoSports.urls')),
 ]

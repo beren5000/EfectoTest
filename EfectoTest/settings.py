@@ -25,7 +25,7 @@ SECRET_KEY = '12p$k!h#s72&b9me%t_h7-jfa3ru15tv!o_pxu1@2hli*l=s1a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'apps.GeoSports.apps.GeosportsConfig',
 ]
 
@@ -78,11 +79,12 @@ WSGI_APPLICATION = 'EfectoTest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'myapp-djongo-db',
+        'NAME': 'geoSports',
     }
 }
 
-
+#Users Model
+#AUTH_USER_MODEL = 'GeoSports.User'
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -120,3 +122,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
