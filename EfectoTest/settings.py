@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import env
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,12 +77,34 @@ WSGI_APPLICATION = 'EfectoTest.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'geoSports',
+
+if env.ENV=='localhost':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'geoSports',
+
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'geoSports',
+            'HOST': 'mongodb+srv://EfectoTest:Adamantio123@efectomongo-rynj8.mongodb.net/test',
+            'USER': 'EfectoTest',
+            'PASSWORD': 'Adamantio123',
+
+        }
+    }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': 'mydatabase',
+#    }
+#}
+
 
 #Users Model
 #AUTH_USER_MODEL = 'GeoSports.User'
