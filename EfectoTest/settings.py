@@ -97,7 +97,7 @@ else:
 
         }
     }
-    STATIC_ROOT = "/var/www/example.com/static/"
+    STATIC_ROOT = "/home/beren5000/webapps/efectoteststatic/"
 
 #DATABASES = {
 #    'default': {
