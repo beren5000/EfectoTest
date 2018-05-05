@@ -26,7 +26,7 @@ SECRET_KEY = '12p$k!h#s72&b9me%t_h7-jfa3ru15tv!o_pxu1@2hli*l=s1a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'beren5000.webfactional.com']
 
 
 # Application definition
