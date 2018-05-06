@@ -12,7 +12,7 @@
 
      <script>
        //basic map config with custom fills, mercator projection
-      var country_counter_url = 'http://127.0.0.1:8000/API/v1/profiles_by_country/?format=json';
+      var country_counter_url = 'http://{{ request.get_host }}/API/v1/profiles_by_country/?format=json';
       var processed_array = {};
       $(document).ready(function() {
           $.ajax({
