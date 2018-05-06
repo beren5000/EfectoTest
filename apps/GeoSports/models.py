@@ -226,3 +226,8 @@ class Profile(Metadata):
     gender = models.IntegerField(blank=True, null=True, choices=GENDER_OPTIONS, verbose_name=_('gender'))
     date_of_birth = models.DateField()
 
+
+class CounterCountries(object):
+    def __init__(self, **kwargs):
+        for field in ('nationality', 'count'):
+            setattr(self, field, kwargs.get(field, None))

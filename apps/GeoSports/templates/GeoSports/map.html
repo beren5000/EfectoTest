@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block extra_javascript %}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://d3js.org/topojson.v1.min.js"></script>
     <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
@@ -11,35 +12,45 @@
 
      <script>
        //basic map config with custom fills, mercator projection
-      var map = new Datamap({
-        scope: 'world',
-        element: document.getElementById('container1'),
-        projection: 'mercator',
-        height: 500,
-        geographyConfig: {
-            highlightBorderColor: '#bada55',
-            popupTemplate: function(geography, data) {
-                return '<div class="hoverinfo">' + geography.properties.name + ' <br> Players: ' +  data.players + ' '
-            },
-            highlightBorderWidth: 3
-        },
-        fills: {
-          defaultFill: '#f0af0a',
-          lt50: 'rgba(0,244,244,0.9)',
-          gt50: 'red'
-        },
+      var country_counter_url = 'http://127.0.0.1:8000/API/v1/profiles_by_country/?format=json';
+      var processed_array = {};
+      $(document).ready(function() {
+          $.ajax({
+              url: country_counter_url,
+              type: "GET",
+              dataType: 'application/json',
+              complete: function (response) {
+                  //console.log(JSON.parse(response.responseText));
+                  var data = JSON.parse(response.responseText);
+                  var len =  data.length;
+                  for(var i=0;i<len;i++ ){
+                      processed_array[data[i].nationality] = {'players': data[i].count};
+                  }
+                  console.log(processed_array);
+                  var map = new Datamap({
+                    scope: 'world',
+                    element: document.getElementById('container1'),
+                    projection: 'mercator',
+                    height: 500,
+                    geographyConfig: {
+                        highlightBorderColor: '#bada55',
+                        popupTemplate: function(geography, data) {
+                            return '<div class="hoverinfo">' + geography.properties.name + ' <br> Players: ' +  data.players + ' '
+                        },
+                        highlightBorderWidth: 3
+                    },
+                    fills: {
+                      defaultFill: '#f0af0a',
+                      lt50: 'rgba(0,244,244,0.9)',
+                      gt50: 'red'
+                    },
 
-        data: {
-          USA: {fillKey: 'lt50', players:'some players' },
-          RUS: {fillKey: 'lt50' },
-          CAN: {fillKey: 'lt50' },
-          BRA: {fillKey: 'gt50' },
-          ARG: {fillKey: 'gt50'},
-          COL: {fillKey: 'gt50' },
-          AUS: {fillKey: 'gt50' },
-          ZAF: {fillKey: 'gt50' },
-          MAD: {fillKey: 'gt50' }
-        }
-      })
+                    data: processed_array
+                  });
+              }
+          });
+
+      });
+
      </script>
 {% endblock %}
